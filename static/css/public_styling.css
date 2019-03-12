@@ -1,0 +1,321 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+html{
+    height: 100%;
+    /* box-sizing: border-box; */
+}
+body{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+body::-webkit-scrollbar{width: 0px;}
+.main-content::-webkit-scrollbar{width: 0px;}
+
+header, footer{
+    flex: 0 0 auto;
+    background-color: #e8ecf1;
+}
+.main-content{
+    flex: 1 0 auto;
+}
+
+form h2{
+    margin-right: 20px;
+    text-align: center;
+    font-family: 'Averia Serif Libre', cursive;
+}
+
+form input{
+    width: 100%;
+    display: block;
+    padding: 5px 5px;
+    font-size: 1em;
+    margin: 5px auto 10px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    background: transparent;
+    border: 1px solid #3E606F;
+}
+
+form input:focus{
+    outline: none;
+}
+
+.button{
+    color: white;
+    background-color: #4E6166;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    display: block;
+    letter-spacing: .1em;
+    margin: 3px 0px;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+button:hover{
+    background-color: rgb(113, 130, 134);
+    transition: 0.3s;
+}
+
+
+.container{
+    width: 90%;
+    margin: 0px auto;
+    height: calc(100% - 132px);
+    overflow: auto;
+    background-color: #eeeeee;
+    box-shadow: 0 0 40px 10px rgba(122,122,122,0.5);;
+}
+
+.banner{
+    margin: 5px auto;
+    min-height: 300px;
+    color: white;
+    border-radius: 5px;
+    background: /* url('../images/musor.jpg'), */ #596275;
+    background-size: 100% 100%;
+}
+.banner .welcome_msg{
+    width: 60%;
+    float: left;
+    padding: 20px;
+}
+.banner .welcome_msg h1{
+    color: #B9E6F2;
+    margin: 25px 0px;
+    font-size: 2.4em;
+    font-family: 'Times New Roman', Times, serif, cursive;
+}
+.banner .welcome_msg p{
+    color: white;
+    font-size: 1.5em;
+    line-height: 1.8em;
+    font-family: 'Times New Roman', Times, serif, serif;
+}
+.banner .welcome_msg p span{
+    font-size: .81em;
+    color: #3E606F;
+}
+.banner .welcome_msg a{
+    width: 50%;
+    margin: 20px 0px;
+    padding: 12px 15px;
+    font-size: 1.2em;
+    text-decoration: none;
+}
+.banner .welcome_msg a:hover{
+    background: #374447;
+}
+
+.banner .login_div{
+    width: 50%;
+    float: left;
+}
+.banner .login_div form{
+    /* border: 2px solid rgba(152, 194, 89, 0.63); */
+    border-radius: 10px;
+    background: #303952/* -image: url('../images/green.jpg') */;
+    /* background-size: 100% 100%; */
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-right: 3px;
+    margin-top: 10px;
+}
+.banner .login_div form h2{
+    color: white;
+    margin-bottom: 20px;
+    font-family: 'Noto Serif', serif;
+}
+.banner .login_div form input{
+    width: 60%;
+    margin: 0px 20px 10px auto;
+    color: white;
+    border: 1px solid white;
+    letter-spacing: 1.3px;
+    font-family: 'Noto Serif', serif;
+}
+.banner .login_div form button{
+    display: block;
+    margin: 0px 20px 10px auto;
+}
+.content-title{
+    margin-top: 30px;
+    margin-left: 15px;
+    padding-left: 15px;
+    color: #374447;
+    font-family: 'Times New Roman', Times, serif;
+}
+.category{
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 0px;
+    padding: 3px 8px;
+    color: rgb(58, 58, 58);
+    background: rgb(236, 236, 236);
+    display: inline-block;
+    border: 1px solid #4e4e4e;
+    /* box-shadow: 3px 2px 2px; */
+    position: absolute;
+    left: 5px; top: 5px;
+    z-index: 3;
+}
+.category:hover{
+    text-decoration: none;
+    border-radius: 5px;
+    /* box-shadow: 3px 2px 2px; */
+    color: rgb(46, 204, 113);
+    background: rgb(236, 236, 236);
+    padding-left: 30px;
+    transition: .4s;
+    opacity: 1;
+}
+.post_image{
+    height: 260px;
+    width: 100%;
+    background-size: 100%;
+}
+.post_info{
+    height: 100%;
+    padding: 0px 5px;
+    font-family: 'Noto Serif', serif;
+    color: #222;
+}
+.post_info span{
+    color: #a6a6a6;
+    font-style: italic;
+}
+.post_info span.read_more{
+    position: absolute;
+    right: 5px; bottom: 5px;
+}
+
+/* * * * * * * * *
+* SINGLE PAGE 
+* * * * * * * * */
+.content .post-wrapper {
+	width: 70%;
+	float: left;
+	min-height: 250px;
+}
+.full-post-div {
+	min-height: 300px;
+	padding: 20px;
+}
+.full-post-div h2.post-title {
+	margin: 10px auto 20px;
+	text-align: center;
+}
+.post-body-div {
+	font-family: 'Times New Roman', Times, serif, serif;
+	font-size: 1.2em;
+}
+.post-body-div p {
+	margin:20px 0px;
+}
+.post-sidebar {
+	margin-left: 5px;
+}
+/* .content .post-comments {
+	margin-top: 25px;
+	border-radius: 2px;
+	border-top: 1px solid #e4e1e1;
+	padding: 10px;
+} */
+.post-sidebar .card {
+    position: sticky;
+    top: 0;
+    width: 95%;
+	margin: 10px auto;
+	border: 1px solid #e4e1e1;
+	border-radius: 10px 10px 0px 0px;
+}
+.post-sidebar .card .card-header {
+	padding: 10px;
+	text-align: center;
+	border-radius: 3px 3px 0px 0px;
+	background: #3E606F;
+}
+.post-sidebar .card .card-header h2 {
+    color: white;
+    font-size: 1.5em;
+}
+.post-sidebar .card .card-content a {
+	display: block;
+	box-sizing: border-box;
+	padding: 8px 10px;
+	border-bottom: 1px solid #e4e1e1;
+	color: #444;
+}
+.post-sidebar .card .card-content a:hover {
+	padding-left: 20px;
+	background: #F9F9F9;
+	transition: 0.3s;
+}
+
+/* NOTIFICATION MESSAGES */
+.message {
+	width: 100%; 
+	margin: 0px auto; 
+	padding: 10px 0px; 
+	color: #3c763d; 
+	background: #dff0d8; 
+	border: 1px solid #3c763d;
+	border-radius: 5px; 
+	text-align: center;
+}
+.error {
+	color: #a94442; 
+	background: #f2dede; 
+	border: 1px solid #a94442; 
+	margin-bottom: 20px;
+}
+.validation_errors p {
+	text-align: left;
+	margin-left: 10px;
+}
+.logged_in_info {
+	text-align: right; 
+	padding: 10px;
+}
+.btn-success{
+    border-radius: 20px;
+    text-align: center;
+}
+.user-name{
+    color: #dadfe1;
+    padding: 0px 20px;
+}
+
+/* Styling the title of post on the main page */
+.post_title{
+    color: rgb(46, 49, 49);
+    text-align: center;
+    border: none;
+    display: block;
+    letter-spacing: .1em;
+    margin: 3px 0px;
+    padding: 10px 20px;
+    text-decoration: none;
+    z-index: 3;
+}
+.post_title:hover{
+    color: rgb(38, 166, 91);
+    text-shadow: -1px 0 1px white, 0 -1px 1px white, 0 1px 1px white, 1px 0 1px white, 0 0 8px white, 0 0 8px white, 0 0 8px white, 2px 2px 3px black;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    display: block;
+    letter-spacing: .1em;
+    margin: 3px 0px;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: 0.2s;
+    opacity: 1;
+}
