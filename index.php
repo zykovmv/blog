@@ -12,9 +12,7 @@
     <?php include( ROOT_PATH . '\includes\navbar.php');?>
     
     <div class="container main-content">
-       <!-- Banner -->
-    <?php /* include( ROOT_PATH . '\includes\banner.php'); */?>
-    
+        
 <?php if (isset($_SESSION['user']['username'])) { ?>
     <!-- Page content -->
         <h2 class="content-title">Последние посты</h2>
@@ -47,7 +45,7 @@
         <!-- </div> -->
         <!-- End of Page content -->
 <?php }else{ ?>
-    <h1>Lorem ipsum dolor sit amet consectetur, adipisicing elit. In sed odit minima iure, hic placeat consectetur ut nobis quae necessitatibus tempora error dolore repellat corrupti asperiores architecto unde earum distinctio. Itaque, voluptatum quo? Explicabo corporis molestiae eaque voluptas quae. Inventore modi sunt sit architecto vero aliquid quas quidem dicta magni tempore rem, atque reiciendis iure corrupti eaque ut? Necessitatibus id nam nisi consequatur, reprehenderit doloribus, aspernatur unde, numquam inventore optio quod reiciendis harum? Nulla amet in, soluta debitis vitae mollitia neque voluptatem provident eaque id fugiat quasi quidem eos accusantium repudiandae dolore expedita aspernatur nesciunt, praesentium recusandae nisi cupiditate quas!</h1>
+    <h1>Всем привет! Зарегистрируйтесь, будет интересно!</h1>
 <?php } ?>    
     </div>
     <!-- Footer -->
