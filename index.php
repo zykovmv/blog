@@ -13,7 +13,7 @@
     
     <div class="container main-content">
        <!-- Banner -->
-    <?php include( ROOT_PATH . '\includes\banner.php');?>
+    <?php /* include( ROOT_PATH . '\includes\banner.php'); */?>
     
 <?php if (isset($_SESSION['user']['username'])) { ?>
     <!-- Page content -->
