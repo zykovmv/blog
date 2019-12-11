@@ -14,7 +14,7 @@
 
 		<!-- Middle form - to create and edit -->
 		<div class="action">
-			<h1 class="page-title">Create/Edit Topics</h1>
+			<h1 class="page-title">Создать/редактировать тему</h1>
 			<form method="post" action="<?php echo BASE_URL . 'admin/topics.php'; ?>" >
 				<!-- validation errors for the form -->
 				<?php include(ROOT_PATH . '/includes/errors.php') ?>
@@ -25,9 +25,9 @@
 				<input type="text" name="topic_name" value="<?php echo $topic_name; ?>" placeholder="Topic">
 				<!-- if editing topic, display the update button instead of create button -->
 				<?php if ($isEditingTopic === true): ?> 
-					<button type="submit" class="btn" name="update_topic">UPDATE</button>
+					<button type="submit" class="btn" name="update_topic">Обновить</button>
 				<?php else: ?>
-					<button type="submit" class="btn" name="create_topic">Save Topic</button>
+					<button type="submit" class="btn" name="create_topic">Сохранить тему</button>
 				<?php endif ?>
 			</form>
 		</div>
@@ -38,13 +38,13 @@
 			<!-- Display notification message -->
 			<?php include(ROOT_PATH . '/includes/messages.php') ?>
 			<?php if (empty($topics)): ?>
-				<h1>No topics in the database.</h1>
+				<h1>Темы отсутствуют в БД...</h1>
 			<?php else: ?>
 				<table class="table">
 					<thead>
 						<th>N</th>
-						<th>Topic Name</th>
-						<th colspan="2">Action</th>
+						<th>Название темы</th>
+						<th colspan="2">Деиствия</th>
 					</thead>
 					<tbody>
 					<?php foreach ($topics as $key => $topic): ?>

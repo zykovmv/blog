@@ -13,30 +13,30 @@
 		<?php if (isset($_SESSION['user'])): ?>
 			<div class="user-info">
 				<span><?php echo $_SESSION['user']['username'] ?></span> &nbsp; &nbsp; 
-				<a href="<?php echo BASE_URL . '/logout.php'; ?>" class="logout-btn">logout</a>
+				<a href="<?php echo BASE_URL . '/logout.php'; ?>" class="logout-btn">Выйти</a>
 			</div>
 		<?php endif ?>
 	</div>
 	<div class="container dashboard">
-		<h1>Welcome</h1>
+		<h1>Добро пожаловать</h1>
 		<div class="stats">
 			<a href="users.php" class="first">
 				<span>43</span> <br>
-				<span>Newly registered users</span>
+				<span>Недавно зарегистрированные</span>
 			</a>
 			<a href="posts.php">
 				<span>43</span> <br>
-				<span>Published posts</span>
+				<span>Посты</span>
 			</a>
 			<a>
 				<span>43</span> <br>
-				<span>Published comments</span>
+				<span>Комментарии</span>
 			</a>
 		</div>
 		<br><br><br>
 		<div class="buttons">
-			<a href="users.php">Add Users</a>
-			<a href="posts.php">Add Posts</a>
+			<a href="users.php">Добавить пользователя</a>
+			<a href="posts.php">Добавить пост</a>
 		</div>
 	</div>
 </body>

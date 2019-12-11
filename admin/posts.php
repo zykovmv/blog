@@ -3,7 +3,7 @@
 <?php  include(ROOT_PATH . '/admin/includes/post_functions.php'); ?>
 <?php include(ROOT_PATH . '/admin/includes/head_section.php'); ?>
 
-<!-- Get all admin posts from DB -->
+<!-- Получить все сообщения администратора из БД -->
 <?php $posts = getAllPosts(); ?>
 	<title>Admin | Manage Posts</title>
 </head>
@@ -21,20 +21,20 @@
 			<?php include(ROOT_PATH . '/includes/messages.php') ?>
 
 			<?php if (empty($posts)): ?>
-				<h1 style="text-align: center; margin-top: 20px;">No posts in the database.</h1>
+				<h1 style="text-align: center; margin-top: 20px;">Посты отсутствуют...</h1>
 			<?php else: ?>
 				<table class="table">
 						<thead>
 						<th>N</th>
-						<th>Title</th>
-						<th>Author</th>
-						<th>Views</th>
-						<!-- Only Admin can publish/unpublish post -->
+						<th>Заголовок</th>
+						<th>Автор</th>
+						<th>Просмотры</th>
+						<!-- Только администратор может публиковать / отменять публикацию сообщения -->
 						<?php if ($_SESSION['user']['role'] == "Admin"): ?>
-							<th><small>Publish</small></th>
+							<th><small>Опубликовать</small></th>
 						<?php endif ?>
-						<th><small>Edit</small></th>
-						<th><small>Delete</small></th>
+						<th><small>Редактировать</small></th>
+						<th><small>Удалить</small></th>
 					</thead>
 					<tbody>
 					<?php foreach ($posts as $key => $post): ?>
@@ -49,7 +49,7 @@
 							</td>
 							<td><?php echo $post['views']; ?></td>
 							
-							<!-- Only Admin can publish/unpublish post -->
+							<!-- Только администратор может публиковать / отменять публикацию сообщения -->
 							<?php if ($_SESSION['user']['role'] == "Admin" ): ?>
 								<td>
 								<?php if ($post['published'] == true): ?>

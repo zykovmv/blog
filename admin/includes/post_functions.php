@@ -1,5 +1,4 @@
 <?php 
-// Post variables
 $post_id = 0;
 $isEditingPost = false;
 $published = 0;
@@ -9,16 +8,13 @@ $body = "";
 $featured_image = "";
 $post_topic = "";
 
-/* - - - - - - - - - - 
--  Post functions
-- - - - - - - - - - -*/
-// get all posts from DB
+// получить все посты из БД
 function getAllPosts()
 {
 	global $conn;
 	
-	// Admin can view all posts
-	// Author can only view their posts
+// Администратор может просматривать все сообщения
+// Автор может просматривать только свои сообщения
 	if ($_SESSION['user']['role'] == "Admin") {
 		$sql = "SELECT * FROM posts";
 	} elseif ($_SESSION['user']['role'] == "Author") {
@@ -35,44 +31,39 @@ function getAllPosts()
 	}
 	return $final_posts;
 }
-// get the author/username of a post
+// получить автора  поста
 function getPostAuthorById($user_id)
 {
 	global $conn;
 	$sql = "SELECT username FROM users WHERE id=$user_id";
 	$result = mysqli_query($conn, $sql);
 	if ($result) {
-		// return username
 		return mysqli_fetch_assoc($result)['username'];
 	} else {
 		return null;
 	}
 }
 
-/* - - - - - - - - - - 
--  Post actions
-- - - - - - - - - - -*/
-// if user clicks the create post button
+
+// если пользователь нажимает кнопку создания поста
 if (isset($_POST['create_post'])) { createPost($_POST); }
-// if user clicks the Edit post button
+// если пользователь нажимает кнопку «Редактировать пост»
 if (isset($_GET['edit-post'])) {
 	$isEditingPost = true;
 	$post_id = $_GET['edit-post'];
 	editPost($post_id);
 }
-// if user clicks the update post button
+// если пользователь нажимает кнопку Обновить сообщения
 if (isset($_POST['update_post'])) {
 	updatePost($_POST);
 }
-// if user clicks the Delete post button
+// если пользователь нажимает кнопку Удалить пост
 if (isset($_GET['delete-post'])) {
 	$post_id = $_GET['delete-post'];
 	deletePost($post_id);
 }
 
-/* - - - - - - - - - - 
--  Post functions
-- - - - - - - - - - -*/
+
 function createPost($request_values)
 	{
 		global $conn, $errors, $title, $featured_image, $topic_id, $body, $published;
@@ -84,37 +75,37 @@ function createPost($request_values)
 		if (isset($request_values['publish'])) {
 			$published = esc($request_values['publish']);
 		}
-		// create slug: if title is "The Storm Is Over", return "the-storm-is-over" as slug
+		// создаем слаг
 		$post_slug = makeSlug($title);
-		// validate form
-		if (empty($title)) { array_push($errors, "Post title is required"); }
-		if (empty($body)) { array_push($errors, "Post body is required"); }
-		if (empty($topic_id)) { array_push($errors, "Post topic is required"); }
-		// Get image name
+		// проверить форму
+		if (empty($title)) { array_push($errors, "Заголовок поста обязателен"); }
+		if (empty($body)) { array_push($errors, "Тело поста обязательно"); }
+		if (empty($topic_id)) { array_push($errors, "Тема поста обязательна"); }
+		// Получить имя изображения
 	  	$featured_image = $_FILES['featured_image']['name'];
-	  	if (empty($featured_image)) { array_push($errors, "Featured image is required"); }
-	  	// image file directory
+	  	if (empty($featured_image)) { array_push($errors, "Требуется изображение"); }
+	  	// каталог файлов изображений
 	  	$target = "../static/images/" . basename($featured_image);
 	  	if (!move_uploaded_file($_FILES['featured_image']['tmp_name'], $target)) {
-	  		array_push($errors, "Failed to upload image. Please check file settings for your server");
+	  		array_push($errors, "Не удалось загрузить изображение. Пожалуйста, проверьте настройки вашего сервера");
 	  	}
-		// Ensure that no post is saved twice. 
+		// убеждаемся, что ни одно пост не было сохранено дважды.
 		$post_check_query = "SELECT * FROM posts WHERE slug='$post_slug' LIMIT 1";
 		$result = mysqli_query($conn, $post_check_query);
 
-		if (mysqli_num_rows($result) > 0) { // if post exists
-			array_push($errors, "A post already exists with that title.");
+		if (mysqli_num_rows($result) > 0) {
+			array_push($errors, "Пост с таким названием уже существует.");
 		}
-		// create post if there are no errors in the form
+		// создать пост, если в форме нет ошибок
 		if (count($errors) == 0) {
 			$query = "INSERT INTO posts (user_id, title, slug, image, body, published, created_at, updated_at) VALUES(1, '$title', '$post_slug', '$featured_image', '$body', $published, now(), now())";
-			if(mysqli_query($conn, $query)){ // if post created successfully
+			if(mysqli_query($conn, $query)){ // если сообщение создано успешно
 				$inserted_post_id = mysqli_insert_id($conn);
-				// create relationship between post and topic
+				// создать связь между постом и темой
 				$sql = "INSERT INTO post_topic (post_id, topic_id) VALUES($inserted_post_id, $topic_id)";
 				mysqli_query($conn, $sql);
 
-				$_SESSION['message'] = "Post created successfully";
+				$_SESSION['message'] = "Пост успешно создан";
 				header('location: posts.php');
 				exit(0);
 			}
@@ -122,9 +113,9 @@ function createPost($request_values)
 	}
 
 	/* * * * * * * * * * * * * * * * * * * * *
-	* - Takes post id as parameter
-	* - Fetches the post from database
-	* - sets post fields on form for editing
+	* - принимаем идентификатор записи в качестве параметра
+	* - извлекаем сообщение из базы данных
+	* - устанавливаем поля сообщения в форме для редактирования
 	* * * * * * * * * * * * * * * * * * * * * */
 	function editPost($role_id)
 	{
@@ -132,7 +123,7 @@ function createPost($request_values)
 		$sql = "SELECT * FROM posts WHERE id=$role_id LIMIT 1";
 		$result = mysqli_query($conn, $sql);
 		$post = mysqli_fetch_assoc($result);
-		// set form values on the form to be updated
+		// устанавливаем значения формы в форму для обновления
 		$title = $post['title'];
 		$body = $post['body'];
 		$published = $post['published'];
@@ -148,66 +139,66 @@ function createPost($request_values)
 		if (isset($request_values['topic_id'])) {
 			$topic_id = esc($request_values['topic_id']);
 		}
-		// create slug: if title is "The Storm Is Over", return "the-storm-is-over" as slug
+		// создаем слаг
 		$post_slug = makeSlug($title);
 
-		if (empty($title)) { array_push($errors, "Post title is required"); }
-		if (empty($body)) { array_push($errors, "Post body is required"); }
-		// if new featured image has been provided
+		if (empty($title)) { array_push($errors, "Заголовок сообщения обязателен"); }
+		if (empty($body)) { array_push($errors, "Тело сообщения обязательно"); }
+		// если предоставлено новое изображение
 		if (isset($_POST['featured_image'])) {
-			// Get image name
+			// Получить имя изображения
 		  	$featured_image = $_FILES['featured_image']['name'];
-		  	// image file directory
+		  	// каталог файлов изображений
 		  	$target = "../static/images/" . basename($featured_image);
 		  	if (!move_uploaded_file($_FILES['featured_image']['tmp_name'], $target)) {
-		  		array_push($errors, "Failed to upload image. Please check file settings for your server");
+		  		array_push($errors, "Не удалось загрузить изображение. Пожалуйста, проверьте настройки вашего сервера");
 		  	}
 		}
 
-		// register topic if there are no errors in the form
+		// зарегистрируем тему, если в форме нет ошибок
 		if (count($errors) == 0) {
 			$query = "UPDATE posts SET title='$title', slug='$post_slug', views=0, image='$featured_image', body='$body', published=$published, updated_at=now() WHERE id=$post_id";
-			// attach topic to post on post_topic table
-			if(mysqli_query($conn, $query)){ // if post created successfully
+			// прикрепить тему к сообщению 
+			if(mysqli_query($conn, $query)){ // если сообщение создано успешно
 				if (isset($topic_id)) {
 					$inserted_post_id = mysqli_insert_id($conn);
-					// create relationship between post and topic
+					// создать связь между постом и темой
 					$sql = "INSERT INTO post_topic (post_id, topic_id) VALUES($inserted_post_id, $topic_id)";
 					mysqli_query($conn, $sql);
-					$_SESSION['message'] = "Post created successfully";
+					$_SESSION['message'] = "Пост успешно создан";
 					header('location: posts.php');
 					exit(0);
 				}
 			}
-			$_SESSION['message'] = "Post updated successfully";
+			$_SESSION['message'] = "Пост успешно обновлен";
 			header('location: posts.php');
 			exit(0);
 		}
 	}
-	// delete blog post
+	// удалить запись в блоге
 	function deletePost($post_id)
 	{
 		global $conn;
 		$sql = "DELETE FROM posts WHERE id=$post_id";
 		if (mysqli_query($conn, $sql)) {
-			$_SESSION['message'] = "Post successfully deleted";
+			$_SESSION['message'] = "Пост успешно удален";
 			header("location: posts.php");
 			exit(0);
 		}
 	}
-	// if user clicks the publish post button
+	// если пользователь нажимает кнопку Опубликовать
 if (isset($_GET['publish']) || isset($_GET['unpublish'])) {
 	$message = "";
 	if (isset($_GET['publish'])) {
-		$message = "Post published successfully";
+		$message = "Пост успешно опубликован";
 		$post_id = $_GET['publish'];
 	} else if (isset($_GET['unpublish'])) {
-		$message = "Post successfully unpublished";
+		$message = "Пост не опубликован";
 		$post_id = $_GET['unpublish'];
 	}
 	togglePublishPost($post_id, $message);
 }
-// delete blog post
+// удаляем запись в блоге
 function togglePublishPost($post_id, $message)
 {
 	global $conn;

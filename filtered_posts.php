@@ -17,7 +17,7 @@
 		<!-- content -->
 		<!-- <div class="container-fluid"> -->
 			<h2 class="content-title">
-				Articles on <u><?php echo getTopicNameById($topic_id); ?></u>
+				Темы <u><?php echo getTopicNameById($topic_id); ?></u>
 			</h2>
 			<hr>
 					<div class="row text-center">  
@@ -29,7 +29,7 @@
 										<h3><?php echo $post['title'] ?></h3>
 										<div class="col">
 											<span><?php echo date("F j, Y ", strtotime($post["created_at"])); ?></span>
-											<span class="read_more">Read more...</span>
+											<span class="read_more">Узнать больше...</span>
 										</div>
 									</div>
 								</a>

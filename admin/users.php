@@ -16,7 +16,7 @@
 		<?php include(ROOT_PATH . '/admin/includes/menu.php') ?>
 		<!-- Middle form - to create and edit  -->
 		<div class="action">
-			<h1 class="page-title">Create/Edit Admin User</h1>
+			<h1 class="page-title">Создать/редактировать пользователя</h1>
 
 			<form method="post" action="<?php echo BASE_URL . 'admin/users.php'; ?>" >
 
@@ -33,7 +33,7 @@
 				<input type="password" name="password" placeholder="Password">
 				<input type="password" name="passwordConfirmation" placeholder="Password confirmation">
 				<select name="role">
-					<option value="" selected disabled>Assign role</option>
+					<option value="" selected disabled>Назначить роль</option>
 					<?php foreach ($roles as $key => $role): ?>
 						<option value="<?php echo $role; ?>"><?php echo $role; ?></option>
 					<?php endforeach ?>
@@ -41,9 +41,9 @@
 
 				<!-- if editing user, display the update button instead of create button -->
 				<?php if ($isEditingUser === true): ?> 
-					<button type="submit" class="btn" name="update_admin">UPDATE</button>
+					<button type="submit" class="btn" name="update_admin">Обновить</button>
 				<?php else: ?>
-					<button type="submit" class="btn" name="create_admin">Save User</button>
+					<button type="submit" class="btn" name="create_admin">Сохранить пользователя</button>
 				<?php endif ?>
 			</form>
 		</div>
@@ -55,14 +55,14 @@
 			<?php include(ROOT_PATH . '/includes/messages.php') ?>
 
 			<?php if (empty($admins)): ?>
-				<h1>No admins in the database.</h1>
+				<h1>Пользователь с правами администратора отсутсвует в БД...</h1>
 			<?php else: ?>
 				<table class="table">
 					<thead>
 						<th>N</th>
-						<th>Admin</th>
-						<th>Role</th>
-						<th colspan="2">Action</th>
+						<th>Администратор</th>
+						<th>Роль</th>
+						<th colspan="2">Действия</th>
 					</thead>
 					<tbody>
 					<?php foreach ($admins as $key => $admin): ?>

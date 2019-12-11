@@ -22,7 +22,7 @@ function getPostTopic($post_id){
 }
 
 /* * * * * * * * * * * * * * * *
-* Returns all posts under a topic
+* Возвращает все сообщения в теме
 * * * * * * * * * * * * * * * * */
 function getPublishedPostsByTopic($topic_id) {
 	global $conn;
@@ -32,7 +32,7 @@ function getPublishedPostsByTopic($topic_id) {
 				WHERE pt.topic_id=$topic_id GROUP BY pt.post_id 
 				HAVING COUNT(1) = 1)";
 	$result = mysqli_query($conn, $sql);
-	// fetch all posts as an associative array called $posts
+	// получить все сообщения в виде ассоциативного массива $posts
 	$posts = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 	$final_posts = array();
@@ -43,7 +43,7 @@ function getPublishedPostsByTopic($topic_id) {
 	return $final_posts;
 }
 /* * * * * * * * * * * * * * * *
-* Returns topic name by topic id
+* Возвращает название темы по идентификатору темы
 * * * * * * * * * * * * * * * * */
 function getTopicNameById($id)
 {
@@ -54,25 +54,25 @@ function getTopicNameById($id)
 	return $topic['name'];
 }
 /* * * * * * * * * * * * * * *
-* Returns a single post
+* Возвращает один пост
 * * * * * * * * * * * * * * */
 function getPost($slug){
 	global $conn;
-	// Get single post slug
+	// Получить слаг
 	$post_slug = $_GET['post-slug'];
 	$sql = "SELECT * FROM posts WHERE slug='$post_slug' AND published=true";
 	$result = mysqli_query($conn, $sql);
 
-	// fetch query results as associative array.
+	// получить результаты запроса в виде ассоциативного массива.
 	$post = mysqli_fetch_assoc($result);
 	if ($post) {
-		// get the topic to which this post belongs
+		// получить тему, к которой принадлежит этот пост
 		$post['topic'] = getPostTopic($post['id']);
 	}
 	return $post;
 }
 /* * * * * * * * * * * *
-*  Returns all topics
+*  Возвращает все темы
 * * * * * * * * * * * * */
 function getAllTopics()
 {
@@ -84,7 +84,7 @@ function getAllTopics()
 }
 
 /* * * * * * * * * * * *
-*  Returns page URL
+*  Возвращает URL страницы
 * * * * * * * * * * * * */
 function currentURL(){
 	$protocol = strpos(strtolower($_SERVER['SERVER_PROTOCOL']),'https') 

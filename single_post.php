@@ -22,7 +22,7 @@
 								<!-- full post div -->
 								<div class="full-post-div">
 										<?php if ($post['published'] == false): ?>
-											<h2 class="post-title">Sorry... This post has not been published</h2>
+											<h2 class="post-title">Извините...пост не был опубликован</h2>
 										<?php else: ?>
 											<h2 class="post-title"><?php echo $post['title']; ?></h2>
 											<div class="post-body-div">
